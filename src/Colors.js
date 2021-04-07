@@ -1,27 +1,25 @@
-import React from 'react';
+import React, { useState } from 'react';
 
-import { data } from './colors.json';
+import { Container, Content, Button } from './styles';
 
-const Colors = () => {
-  let valueParser;
-  let numColors;
-  let divs = []
+function Colors() {
+  const [color, setColor] = useState('#456');
 
-
+  const changeColor = (e) => {
+    // let randomColor = "#" + Math.floor(Math.random()*16777215).toString(16);
+    let randomColor = "#" + (Math.floor(Math.random() * 2 ** 24)).toString(16).padStart(0, 6);
+    setColor(randomColor);
+    console.log("color", randomColor)
+  }
 
   return (
-    <div>
-      { data.map((data) => {
-        valueParser = JSON.stringify(data.colors);
-        // numColors = valueParser.split(",").length;
-        return (
-          <div>
-            <h1>{valueParser}</h1>
-          </div>
-        )
-      })}
-    </div>
-  )
+    <Container color={color}>
+      <Content>
+        <Button onClick={changeColor}>Change Color!</Button>
+        <p>{color}</p>
+      </Content>
+    </Container>
+  );
 }
 
 export default Colors;
